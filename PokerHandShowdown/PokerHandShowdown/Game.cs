@@ -40,7 +40,7 @@ namespace PokerHandShowdown
             {
                 createHand.Add(new Card(entry.Trim().ToLower()));
             }
-            Hand hand = new Hand(playerName, createHand);
+            Hand hand = new Hand(playerName, createHand, playerHand);
             addHand(hand);
         }
 
@@ -50,7 +50,7 @@ namespace PokerHandShowdown
             int distinctCount = playerCards.GroupBy(props => new { props.CardValue, props.CardSuit }).Select(x => x.First()).Count();
 
             if (distinctCount < (CardsLibrary.HAND_SIZE) * (playerHands.Count() + 1) || distinctCount > CardsLibrary.DECK_SIZE)
-            { 
+            {
                 throw new ArgumentException("Error: Cheater! Found duplicated cards!");
             }
 
@@ -59,6 +59,10 @@ namespace PokerHandShowdown
 
         public void evaluateHands()
         {
+            if (!(playerHands.Count() > 1))
+            {
+                throw new ArgumentException("Error: Not enough players have been added to start a game.");
+            }
             var orderedHands = playerHands.OrderByDescending(hand => hand.TypeOfHand).ThenByDescending(val => val.HighestValue).ThenBy(suit => suit.HighestSuit);
 
             Console.WriteLine("Given the following players and their hands, the winner is: " + orderedHands.ElementAt(0).Player + "\n");
@@ -66,7 +70,7 @@ namespace PokerHandShowdown
 
             foreach (Hand hands in orderedHands)
             {
-                Console.WriteLine(hands.Player + ": " + hands.TypeOfHand + " (" + hands.HighestValue  + " of " + hands.HighestSuit + " high)");
+                Console.WriteLine(hands.Player + ": " + hands.TypeOfHand + " (" + hands.HighestValue + " of " + hands.HighestSuit + " high) --- Hand: " + hands.playerHand);
             }
             newGame();
         }

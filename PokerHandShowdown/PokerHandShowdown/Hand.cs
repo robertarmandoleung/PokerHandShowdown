@@ -10,16 +10,18 @@ namespace PokerHandShowdown
     {
         public List<Card> cards {get; set;}
         public String Player { get; set; }
+        public String playerHand { get; set; }
 
         /*Evaluation variables*/
         public CardsLibrary.HandType TypeOfHand { get; set; }
         public CardsLibrary.CardValues HighestValue { get; set; }
         public CardsLibrary.CardSuits HighestSuit { get; set; }
 
-        public Hand(String playerName, List<Card> cardsInput)
+        public Hand(String playerName, List<Card> cardsInput, String playerHandInput)
         {
             cards = cardsInput;
             Player = playerName;
+            playerHand = playerHandInput;
             evalHand();
         }
 
