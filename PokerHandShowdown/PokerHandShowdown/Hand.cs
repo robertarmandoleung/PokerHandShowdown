@@ -52,7 +52,6 @@ namespace PokerHandShowdown
                 }
                 return; 
             }
-            Console.WriteLine("End");
         }
 
         private void isFlush(IEnumerable<Card> cards)
