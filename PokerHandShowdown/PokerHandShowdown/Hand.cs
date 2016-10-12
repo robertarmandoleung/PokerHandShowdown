@@ -29,6 +29,7 @@ namespace PokerHandShowdown
         {
             var sorted = cards.OrderByDescending(val => val.CardValue).ThenBy(suit => suit.CardSuit);
             IEnumerable<IGrouping<CardsLibrary.CardValues, Card>> valueGroup = sorted.GroupBy(card => card.CardValue).OrderByDescending(cnt => cnt.Count());
+            cards = valueGroup.SelectMany(card => card).ToList();
             checkPairings(valueGroup); 
             isFlush(sorted);
         }
@@ -51,6 +52,7 @@ namespace PokerHandShowdown
                 }
                 return; 
             }
+            Console.WriteLine("End");
         }
 
         private void isFlush(IEnumerable<Card> cards)

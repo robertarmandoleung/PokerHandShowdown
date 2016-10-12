@@ -4,10 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace PokerHandShowdown
 {
     class Program
     {
+
         static void Main(string[] args)
         {
             Game pokerHands = new PokerHandShowdown.Game();
@@ -18,6 +20,10 @@ namespace PokerHandShowdown
             pokerHands.addPlayer("Pete", "6D,6S,6H,6C,2S");             // Test 4 of a kind - should result in a three of a kind, since it is not in the subset
             pokerHands.addPlayer("Ali", "TC,9S,8C,JC,QC");              // High card examples
             pokerHands.addPlayer("Joey", "TS,KS,5C,JS,QS");
+
+            /*pokerHands.addPlayer("Joe", "3H, 4D, 9C, 9D, QH");
+            pokerHands.addPlayer("Jen", "5C, 7D, 9H, 9S, QS");
+            pokerHands.addPlayer("Jen", "JC, KD, 4H, 3S, 2S");*/
 
             // Duplicate cards example
             // pokerHands.addPlayer("Joe", "5D,4D,3D,2D,AD");
@@ -34,5 +40,6 @@ namespace PokerHandShowdown
             pokerHands.evaluateHands();
             Console.ReadLine();
         }
+
     }
 }

@@ -4,3 +4,8 @@ c:\users\bobby\documents\visual studio 2015\Projects\PokerHandShowdown\PokerHand
 c:\users\bobby\documents\visual studio 2015\Projects\PokerHandShowdown\PokerHandShowdown\obj\Debug\PokerHandShowdown.csprojResolveAssemblyReference.cache
 c:\users\bobby\documents\visual studio 2015\Projects\PokerHandShowdown\PokerHandShowdown\obj\Debug\PokerHandShowdown.exe
 c:\users\bobby\documents\visual studio 2015\Projects\PokerHandShowdown\PokerHandShowdown\obj\Debug\PokerHandShowdown.pdb
+C:\Users\bobby\Desktop\PokerHandShowdown\PokerHandShowdown\PokerHandShowdown\bin\Debug\PokerHandShowdown.exe.config
+C:\Users\bobby\Desktop\PokerHandShowdown\PokerHandShowdown\PokerHandShowdown\obj\Debug\PokerHandShowdown.exe
+C:\Users\bobby\Desktop\PokerHandShowdown\PokerHandShowdown\PokerHandShowdown\obj\Debug\PokerHandShowdown.pdb
+C:\Users\bobby\Desktop\PokerHandShowdown\PokerHandShowdown\PokerHandShowdown\bin\Debug\PokerHandShowdown.exe
+C:\Users\bobby\Desktop\PokerHandShowdown\PokerHandShowdown\PokerHandShowdown\bin\Debug\PokerHandShowdown.pdb

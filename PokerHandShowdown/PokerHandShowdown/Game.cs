@@ -12,17 +12,17 @@ using System.Threading.Tasks;
 
 namespace PokerHandShowdown
 {
-    class Game
+    public class Game
     {
-        public static List<Card> playerCards { get; set; }
-        public static List<Hand> playerHands { get; set; }
+        List<Card> playerCards { get; set; }
+        List<Hand> playerHands { get; set; }
 
         public Game()
         {
             newGame();
         }
 
-        private static void newGame()
+        private void newGame()
         {
             playerCards = new List<Card>();
             playerHands = new List<Hand>();
@@ -44,7 +44,7 @@ namespace PokerHandShowdown
             addHand(hand);
         }
 
-        public void addHand(Hand playerHand)
+        private void addHand(Hand playerHand)
         {
             playerCards.AddRange(playerHand.cards);
             int distinctCount = playerCards.GroupBy(props => new { props.CardValue, props.CardSuit }).Select(x => x.First()).Count();
@@ -63,19 +63,46 @@ namespace PokerHandShowdown
             {
                 throw new ArgumentException("Error: Not enough players have been added to start a game.");
             }
+
             var orderedHands = playerHands.OrderByDescending(hand => hand.TypeOfHand).ThenByDescending(val => val.HighestValue).ThenBy(suit => suit.HighestSuit);
+            var groupedHandsByValue = orderedHands.GroupBy(hand => hand.TypeOfHand).First().GroupBy(hand => hand.HighestValue).First().ToList();
 
-            Console.WriteLine("Given the following players and their hands, the winner is: " + orderedHands.ElementAt(0).Player + "\n");
-            Console.Write("WINNER: ");
+            int groupCount = groupedHandsByValue.Count();
 
-            foreach (Hand hands in orderedHands)
+            if (groupCount > 1)
             {
-                Console.WriteLine(hands.Player + ": " + hands.TypeOfHand + " (" + hands.HighestValue + " of " + hands.HighestSuit + " high) --- Hand: " + hands.playerHand);
+                var firstCards = groupedHandsByValue.First().cards;
+                var lastCards = groupedHandsByValue.Last().cards;
+                for (int i = 0; i < groupCount - 1; i++)
+                {
+                    removeDuplicates(ref groupedHandsByValue, lastCards, i);
+                }
+                removeDuplicates(ref groupedHandsByValue, lastCards, groupCount - 1);
             }
+
+            groupedHandsByValue.ForEach(item => item.evalHand());
+
+            Hand winner = groupedHandsByValue.OrderByDescending(win => win.HighestValue).First();
+
+            Console.WriteLine("Given the following players and their hands, the winner is: " + winner.Player);
+
+            printHands();
+
             newGame();
         }
 
+        private void removeDuplicates(ref List<Hand> removalList, List<Card> keys, int index)
+        {
+            removalList.ElementAt(index).cards = removalList.ElementAt(index).cards.Where(x => !keys.Any(y => y.CardValue == x.CardValue)).ToList();
+        }
 
+        public void printHands()
+        {
+            foreach (Hand hands in playerHands)
+            {
+                Console.WriteLine(hands.Player + ": " + hands.playerHand);
+            }
+        }
 
     }
 
