@@ -12,10 +12,12 @@ namespace PokerHandShowdown
 
         static void Main(string[] args)
         {
-            pokerTest1();       /*All variations of hands*/
-            pokerTest2();       /*Assignment example*/
-            pokerTest3();       /*Erroneous output*/
-            pokerTest4();
+            pokerTest1();           /*All variations of hands*/
+            //pokerTest2();         /*Assignment example*/
+            //pokerTest3();         /*Erroneous output*/
+            //pokerTest4();
+            //pokerTest5();         /*Tied hand example*/
+            
             Console.ReadLine();
         }
 
@@ -53,6 +55,15 @@ namespace PokerHandShowdown
             Game pokerHands4 = new PokerHandShowdown.Game();
             pokerHands4.addPlayer("Joe", "6H,TH");
             pokerHands4.evaluateHands();
+        }
+
+        public static void pokerTest5()
+        {
+            Game pokerHands = new PokerHandShowdown.Game();
+            pokerHands.addPlayer("Bob", "5D,5S,3D,2D,AD");       
+            pokerHands.addPlayer("Max", "5C,5H,3C,2C,AS");        
+
+            pokerHands.evaluateHands();
         }
 
     }

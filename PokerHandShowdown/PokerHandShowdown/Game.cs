@@ -66,7 +66,6 @@ namespace PokerHandShowdown
 
             var orderedHands = playerHands.OrderByDescending(hand => hand.TypeOfHand).ThenByDescending(val => val.HighestValue).ThenBy(suit => suit.HighestSuit);
             var groupedHandsByValue = orderedHands.GroupBy(hand => hand.TypeOfHand).First().GroupBy(hand => hand.HighestValue).First().ToList();
-
             int groupCount = groupedHandsByValue.Count();
 
             if (groupCount > 1)
@@ -80,15 +79,20 @@ namespace PokerHandShowdown
                 removeDuplicates(ref groupedHandsByValue, lastCards, groupCount - 1);
             }
 
-            groupedHandsByValue.ForEach(item => item.evalHand());
-
-            Hand winner = groupedHandsByValue.OrderByDescending(win => win.HighestValue).First();
-
-            Console.WriteLine("Given the following players and their hands, the winner is: " + winner.Player);
+            if (groupedHandsByValue.All(c => c.cards.Count() == 0))
+            {
+                Console.Write("Given the following players and their hands, it is tied between: ");
+                groupedHandsByValue.ForEach(hands => { Console.Write("[" + hands.Player + "]"); });
+                Console.WriteLine();
+            }
+            else
+            {
+                groupedHandsByValue.ForEach(item => item.evalHand());
+                Hand winner = groupedHandsByValue.OrderByDescending(win => win.HighestValue).First();
+                Console.WriteLine("Given the following players and their hands, the winner is: [" + winner.Player + "]");
+            }
 
             printHands();
-
-            newGame();
         }
 
         private void removeDuplicates(ref List<Hand> removalList, List<Card> keys, int index)
